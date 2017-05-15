@@ -1,6 +1,56 @@
 import React, { Component } from 'react'
+import SimpleStorageContract from '../../../build/contracts/SimpleStorage.json'
+import store from '../../store'
 
 class Home extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      storageValue: 0
+    }
+  }
+
+  componentWillMount() {
+    // Ensure web3 is initialized, then instantiate contract.
+    // Subscribe to store so we know once web3 is initialized.
+    // See utils/getWeb3 for more info.
+
+    store.subscribe(() => { this.instantiateContract() })
+  }
+
+  instantiateContract() {
+    if (typeof store.getState().web3.web3Instance !== 'undefined') {
+      /*
+       * SMART CONTRACT EXAMPLE
+       */
+
+      const contract = require('truffle-contract')
+      const simpleStorage = contract(SimpleStorageContract)
+      simpleStorage.setProvider(store.getState().web3.provider)
+
+      // Declaring this for later so we can chain functions on SimpleStorage.
+      var simpleStorageInstance
+
+      // Get current coinbase.
+      store.getState().web3.web3Instance.eth.getCoinbase((error, coinbase) => {
+        simpleStorage.deployed().then((instance) => {
+          simpleStorageInstance = instance
+
+          // Stores a value of 5.
+          return simpleStorageInstance.set(5, {from: coinbase})
+        }).then((result) => {
+          // Get the value from the contract to prove it worked.
+          return simpleStorageInstance.get.call(coinbase)
+        }).then((result) => {
+          // Update state with the result.
+          return this.setState({ storageValue: result.c[0] })
+        })
+      })
+
+    }
+  }
+
   render() {
     return(
       <main className="container">
@@ -8,15 +58,10 @@ class Home extends Component {
           <div className="pure-u-1-1">
             <h1>Good to Go!</h1>
             <p>Your Truffle Box is installed and ready.</p>
-            <h2>Smart Contract Authentication</h2>
-            <p>This particular box comes with autentication via a smart contract built-in.</p>
-            <p>In the upper-right corner, you'll see a login button. Click it to login with with the Authentication smart contract. If there is no user information for the given address, you'll be redirected to sign up. There are two authenticated routes: "/dashboard", which displays the user's name once authenticated; and "/profile", which allows a user to update their name.</p>
-            <h3>Redirect Path</h3>
-            <p>This example redirects home ("/") when trying to access an authenticated route without first authenticating. You can change this path in the failureRedriectUrl property of the UserIsAuthenticated wrapper on <strong>line 9</strong> of util/wrappers.js.</p>
-            <h3>Accessing User Data</h3>
-            <p>Once authenticated, any component can access the user's data by assigning the authData object to a component's props.<br/><code>{"// In component's render function."}<br/>{"const { authData } = this.props"}<br/><br/>{"// Use in component."}<br/>{"Hello { this.props.authData.name }!"}</code></p>
-            <h3>Further Reading</h3>
-            <p>The React/Redux portions of the authentication fuctionality are provided by <a href="https://github.com/mjrussell/redux-auth-wrapper" target="_blank">mjrussell/redux-auth-wrapper</a>.</p>
+            <h2>Smart Contract Example</h2>
+            <p>The below will show a stored value of 5 by default if your contracts compiled and migrated successfully.</p>
+            <p>Try changing the value stored on <strong>line 50</strong> of App.js.</p>
+            <p>The stored value is: {this.state.storageValue}</p>
           </div>
         </div>
       </main>
