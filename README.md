@@ -1,6 +1,6 @@
-# Truffle Box (React, Redux and Authentication)
+# Truffle Box (React, Redux, Authentication and Semantic UI)
 
-All truffle boxes come with Truffle, Webpack and React. This box adds react-router, redux and redux-auth-wrapper for authentication powered by a smart contract. Great for building your own auth system.
+All truffle boxes come with Truffle, Webpack and React. This box adds react-router, redux and redux-auth-wrapper for authentication powered by a smart contract, an d ui with semantic-ui. Great for building your own auth system.
 
 ## Installation
 
