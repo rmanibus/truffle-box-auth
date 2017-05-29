@@ -2,50 +2,41 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { HiddenOnlyAuth, VisibleOnlyAuth } from './util/wrappers.js'
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 // UI Components
-import LoginButtonContainer from './user/ui/loginbutton/LoginButtonContainer'
-import LogoutButtonContainer from './user/ui/logoutbutton/LogoutButtonContainer'
+import MyMenu from './ui/menu/Menu'
 
 // Styles
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
+import 'semantic-ui-css/semantic.min.css';
+
+import { Button, Menu,  Grid, Segment } from 'semantic-ui-react'
+
 import './App.css'
 
-class App extends Component {
-  render() {
-    const OnlyAuthLinks = VisibleOnlyAuth(() =>
-      <span>
-        <li className="pure-menu-item">
-          <Link to="/dashboard" className="pure-menu-link">Dashboard</Link>
-        </li>
-        <li className="pure-menu-item">
-          <Link to="/profile" className="pure-menu-link">Profile</Link>
-        </li>
-        <LogoutButtonContainer />
-      </span>
-    )
 
-    const OnlyGuestLinks = HiddenOnlyAuth(() =>
-      <span>
-        <li className="pure-menu-item">
-          <Link to="/signup" className="pure-menu-link">Sign Up</Link>
-        </li>
-        <LoginButtonContainer />
-      </span>
-    )
+class App extends Component {
+
+  
+  render() {
+    
 
     return (
       <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-          <Link to="/" className="pure-menu-heading pure-menu-link">Truffle Box</Link>
-          <ul className="pure-menu-list navbar-right">
-            <OnlyGuestLinks />
-            <OnlyAuthLinks />
-          </ul>
-        </nav>
 
-        {this.props.children}
+        <div>
+
+       
+            <MyMenu/>
+        
+            <br/>
+            <Grid container verticalAlign='middle' columns={16}  centered>
+                <Grid.Column mobile={16} tablet={8} computer={6}>
+                    {this.props.children}
+                </Grid.Column>
+            </Grid>
+        </div>
+        
       </div>
     );
   }

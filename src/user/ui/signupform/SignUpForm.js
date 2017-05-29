@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Form } from 'semantic-ui-react'
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -26,17 +27,15 @@ class SignUpForm extends Component {
 
   render() {
     return(
-      <form className="pure-form pure-form-stacked" onSubmit={this.handleSubmit.bind(this)}>
-        <fieldset>
+      
+      <Form onSubmit={this.handleSubmit.bind(this)}>
+        <Form.Field>
           <label htmlFor="name">Name</label>
-          <input id="name" type="text" value={this.state.name} onChange={this.onInputChange.bind(this)} placeholder="Name" />
-          <span className="pure-form-message">This is a required field.</span>
+          <input id="name" value={this.state.name} placeholder="Name" type="text" onChange={this.onInputChange.bind(this)}/>
+        </Form.Field>
 
-          <br />
-
-          <button type="submit" className="pure-button pure-button-primary">Sign Up</button>
-        </fieldset>
-      </form>
+        <Button type='submit'>Sign Up</Button>
+      </Form>
     )
   }
 }

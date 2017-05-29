@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router'
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { UserIsAuthenticated, UserIsNotAuthenticated } from './util/wrappers.js'
@@ -20,6 +20,8 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render((
     <Provider store={store}>
       <Router history={history}>
+
+
         <Route path="/" component={App}>
           <IndexRoute component={Home} />
           <Route path="dashboard" component={UserIsAuthenticated(Dashboard)} />
