@@ -1,6 +1,19 @@
+import React from 'react'
+import { Button } from 'semantic-ui-react'
+
 import { connect } from 'react-redux'
-import LogoutButton from './LogoutButton'
-import { logoutUser } from './LogoutButtonActions'
+import { logoutUser } from '../actions/LogoutButtonActions'
+
+
+const LogoutButton = ({ onLogoutUserClick }) => {
+
+  return(
+      <Button onClick={(event) => onLogoutUserClick(event)}>Logout</Button>
+  )
+}
+
+
+
 
 const mapStateToProps = (state, ownProps) => {
   return {}
@@ -16,9 +29,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const LogoutButtonContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(LogoutButton)
 
-export default LogoutButtonContainer
+

@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
-import { HiddenOnlyAuth, VisibleOnlyAuth } from '../../util/wrappers.js'
-import LoginButtonContainer from '../../user/ui/loginbutton/LoginButtonContainer'
-import LogoutButtonContainer from '../../user/ui/logoutbutton/LogoutButtonContainer'
+import { connect } from 'react-redux'
+
+import { HiddenOnlyAuth, VisibleOnlyAuth } from '../util/wrappers.js'
+import LoginButton from './LoginButton'
+import LogoutButton from './LogoutButton'
 import { Menu} from 'semantic-ui-react'
-import Item from './Item'
+import Item from '../components/Item'
 
 
 class MyMenu extends Component {
@@ -14,13 +16,12 @@ class MyMenu extends Component {
         this.state = { activeItem: props.path }
     }
     
-    handleItemClick = (e, { name }) => this.setState({ activeItem: this.props.path })
     
 
     
     render(){ 
-            console.log(this.props.path);
-    const { activeItem } = this.state
+
+
     const OnlyAuthLinks = VisibleOnlyAuth(() =>
       <Menu pointing>
         <Item
@@ -36,7 +37,7 @@ class MyMenu extends Component {
           position='right'
           name='logout'
         >       
-            <LogoutButtonContainer/>
+            <LogoutButton/>
         </Menu.Item>
       </Menu>
     )
@@ -58,7 +59,7 @@ class MyMenu extends Component {
           position='right'
           name='login'
         >       
-            <LoginButtonContainer/>
+            <LoginButton/>
         </Menu.Item>
        </Menu>
 
@@ -71,4 +72,18 @@ class MyMenu extends Component {
     )
     }
 }
-export default MyMenu
+
+
+
+function mapStateToProps(state, ownProps) {
+  return {
+    state: state,
+    ownProps: ownProps,
+    path: state.routing.locationBeforeTransitions.pathname
+  };
+}
+
+export default connect(
+  mapStateToProps
+)(MyMenu)
+

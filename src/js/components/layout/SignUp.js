@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SignUpFormContainer from '../../ui/signupform/SignUpFormContainer'
+import SignUpForm from '../../containers/SignUpForm'
 
 class SignUp extends Component {
   render() {
@@ -7,7 +7,7 @@ class SignUp extends Component {
       <main className="container">
             <h1>Sign Up</h1>
             <p>We've got your wallet information, simply input your name and your account is made!</p>
-            <SignUpFormContainer />
+            <SignUpForm />
       </main>
     )
   }

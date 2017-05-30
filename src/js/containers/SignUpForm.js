@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { signUpUser } from '../actions/SignUpFormActions'
 import { Button, Form } from 'semantic-ui-react'
 
 class SignUpForm extends Component {
@@ -40,4 +42,22 @@ class SignUpForm extends Component {
   }
 }
 
-export default SignUpForm
+const mapStateToProps = (state, ownProps) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignUpFormSubmit: (name) => {
+      event.preventDefault();
+
+      dispatch(signUpUser(name))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUpForm)
+

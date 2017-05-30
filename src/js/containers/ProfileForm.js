@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { updateUser } from '../actions/ProfileFormActions'
 import { Button, Form } from 'semantic-ui-react'
 
 class ProfileForm extends Component {
@@ -40,4 +42,24 @@ class ProfileForm extends Component {
   }
 }
 
-export default ProfileForm
+const mapStateToProps = (state, ownProps) => {
+  return {
+    name: state.user.data.name
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onProfileFormSubmit: (name) => {
+      event.preventDefault();
+
+      dispatch(updateUser(name))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileForm)
+

@@ -35,11 +35,11 @@ module.exports = {
   appBuild: resolveApp('build_webpack'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/index.js'),
+  appIndexJs: resolveApp('src/js/index.js'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveApp('src/setupTests.js'),
+  testsSetup: resolveApp('src/js/setupTests.js'),
   appNodeModules: resolveApp('node_modules'),
   ownNodeModules: resolveApp('node_modules'),
   nodePaths: nodePaths
