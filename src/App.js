@@ -5,7 +5,7 @@ import { HiddenOnlyAuth, VisibleOnlyAuth } from './util/wrappers.js'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // UI Components
-import MyMenu from './ui/menu/Menu'
+import MenuContainer from './ui/menu/MenuContainer'
 
 // Styles
 import 'semantic-ui-css/semantic.min.css';
@@ -27,7 +27,7 @@ class App extends Component {
         <div>
 
        
-            <MyMenu/>
+            <MenuContainer/>
         
             <br/>
             <Grid container verticalAlign='middle' columns={16}  centered>

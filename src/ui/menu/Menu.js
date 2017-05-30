@@ -4,38 +4,34 @@ import { HiddenOnlyAuth, VisibleOnlyAuth } from '../../util/wrappers.js'
 import LoginButtonContainer from '../../user/ui/loginbutton/LoginButtonContainer'
 import LogoutButtonContainer from '../../user/ui/logoutbutton/LogoutButtonContainer'
 import { Menu} from 'semantic-ui-react'
+import Item from './Item'
+
 
 class MyMenu extends Component {
+    constructor(props) {
+        super(props);
 
-  state = { activeItem: 'home' }
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
+        this.state = { activeItem: props.path }
+    }
+    
+    handleItemClick = (e, { name }) => this.setState({ activeItem: this.props.path })
+    
 
     
-    render(){
-    
+    render(){ 
+            console.log(this.props.path);
     const { activeItem } = this.state
     const OnlyAuthLinks = VisibleOnlyAuth(() =>
-      <Menu>
-        <Menu.Item
-          as={Link} 
-          to='/dashboard'
-          name='dashboard'
-          active={activeItem === 'dashboard'}
-          onClick={this.handleItemClick}
-        >
-            Dashboard
-        </Menu.Item>
-        <Menu.Item
-          as={Link} 
-          to='/profile'
-          name='profile'
-          active={activeItem === 'profile'}
-          onClick={this.handleItemClick}
-        >
-            Profile
-        </Menu.Item>    
+      <Menu pointing>
+        <Item
+            name='dashboard'
+            activeItem={this.props.path}
+        />
+        <Item
+            name='profile'
+            activeItem={this.props.path}
+        />
+        
         <Menu.Item
           position='right'
           name='logout'
@@ -46,26 +42,18 @@ class MyMenu extends Component {
     )
 
     const OnlyGuestLinks = HiddenOnlyAuth(() =>
-       <Menu>
-        <Menu.Item
-          as={Link} 
+       <Menu pointing>
+        <Item
           to='/'
           name='home'
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-        >
-            Home
-        </Menu.Item>
-        <Menu.Item
-          as={Link} 
-          to='/signup'
+          activeItem={this.props.path}
+        />
+
+        <Item
           name='signup'
-          active={activeItem === 'signup'}
-          onClick={this.handleItemClick}
-        >
-            Sign Up
-        </Menu.Item>
-        
+          activeItem={this.props.path}
+        />
+   
         <Menu.Item
           position='right'
           name='login'
