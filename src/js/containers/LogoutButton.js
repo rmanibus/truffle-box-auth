@@ -1,9 +1,12 @@
 import React from 'react'
-import { Button } from 'semantic-ui-react'
-
 import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+
+// Actions
 import { logoutUser } from '../actions/LogoutButtonActions'
 
+// UI
+import { Button } from 'semantic-ui-react'
 
 const LogoutButton = ({ onLogoutUserClick }) => {
 
@@ -20,13 +23,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onLogoutUserClick: (event) => {
-      event.preventDefault();
-
-      dispatch(logoutUser())
-    }
-  }
+    return bindActionCreators({onLogoutUserClick: logoutUser}, dispatch);
 }
 
 export default connect(

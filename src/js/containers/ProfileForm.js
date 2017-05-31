@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+
+// Actions
 import { updateUser } from '../actions/ProfileFormActions'
+
+// UI
 import { Button, Form } from 'semantic-ui-react'
 
 class ProfileForm extends Component {
@@ -43,19 +48,13 @@ class ProfileForm extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    name: state.user.data.name
-  }
+    return {
+        name: state.user.data.name
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onProfileFormSubmit: (name) => {
-      event.preventDefault();
-
-      dispatch(updateUser(name))
-    }
-  }
+    return bindActionCreators({onProfileFormSubmit: updateUser}, dispatch)
 }
 
 export default connect(

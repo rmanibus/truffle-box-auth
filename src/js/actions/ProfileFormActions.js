@@ -38,7 +38,7 @@ export function updateUser(name) {
 
         dispatch(userUpdated({"name": name}))
 
-        alert('Name updated!')
+        alert('Name updated!') // componentDidUpdate(prevProps, prevState) in Container ??
       })
     })
   }

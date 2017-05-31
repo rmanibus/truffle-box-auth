@@ -1,8 +1,13 @@
 import React from 'react'
-import { Button} from 'semantic-ui-react'
-
 import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+
+
+// Actions
 import { loginUser } from '../actions/LoginButtonActions'
+
+// UI
+import { Button} from 'semantic-ui-react'
 
 
 const LoginButton = ({ onLoginUserClick }) => {
@@ -22,12 +27,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoginUserClick: (event) => {
-      event.preventDefault();
-      dispatch(loginUser())
-    }
-  }
+    return bindActionCreators({onLoginUserClick: loginUser}, dispatch)
 }
 
 export default connect(
