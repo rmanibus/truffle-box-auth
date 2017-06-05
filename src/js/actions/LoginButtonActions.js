@@ -6,10 +6,13 @@ const provider = new Web3.providers.HttpProvider('http://localhost:8545')
 const web3 = new Web3(provider)
 const contract = require('truffle-contract')
 
-export const USER_LOGGED_IN = 'USER_LOGGED_IN'
-function userLoggedIn(user) {
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+
+function loginSuccess(user) {
   return {
-    type: USER_LOGGED_IN,
+    type: LOGIN_SUCCESS,
     payload: user
   }
 }
@@ -41,7 +44,7 @@ export function loginUser() {
         // If no error, login user.
         var userName = web3.toUtf8(result)
 
-        dispatch(userLoggedIn({"name": userName}))
+        dispatch(loginSuccess({"name": userName}))
 
         // Used a manual redirect here as opposed to a wrapper.
         // This way, once logged in a user can still access the home page.
